@@ -38,16 +38,22 @@ A set of methods to compress/decompress data. The basic code stems from a LINUX 
  |Returns:        |NULL - Memory problems.<br>Memory buffer containing compressed copy of input.|
  |Prototype:      |`UCHAR *Compress( UCHAR *spInBuf /* I: Buffer to be compressed. */, UINT *nLen ) /* IO: Length of dec/compressed buffer. */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**Decompress**|
  |Description:    |A generic function to de-compress a buffer to text. |
  |Returns:        |NULL - Memory problems.<br>Memory buffer containing decompressed copy of input.|
  |Prototype:      |`UCHAR *Decompress( UCHAR *spInBuf /* I: Buffer to be decompressed. */, UINT *nCmpLen ) /* IO: Length of comp/dec buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**WLZW**|
  |Description:    |Write or compress data in LZW format.|
  |Returns:        |0  = Worthless CPU waste (No compression)<br>-1 = General error<br>-2 = Logical error<br>-3 = Expand error<br>>0 = OK/total length|
  |Prototype:      |`int WLZW( byte *si /* I: Data for compression */, code *so /* O: Compressed data */, int len /* I: Length of data for compression */, int maxlen ) /* I: Maximum length of compressed data */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**RLZW**|
  |Description:    |Read or de-compress data from LZW format.|
  |Returns:        |0  = Worthless CPU waste (No compression)<br>-1 = General error<br>-2 = Logical error<br>-3 = Expand error<br>>0 = OK/total length|
@@ -1199,9 +1205,9 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int aupl_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
+
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
-
  |**Function**:   |**aupl_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
