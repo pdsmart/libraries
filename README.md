@@ -65,6 +65,8 @@ Generic network communications routines. These form the basis of daemon function
  |Returns:        |16bit CRC|
  |Prototype:      |`UINT _SL_CalcCRC( UCHAR *szBuf /* I: Data buffer to perform CRC on */, UINT nBufLen ) /* I: Length of data buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_CheckCRC**|
  |Description:    |Validate the CRC on a buffer with the one given.|
  |Thread Safe:    | Yes|
@@ -72,12 +74,16 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`UINT _SL_CheckCRC( UCHAR *szBuf /* I: Data buffer to calc CRC on */, UINT nBufLen ) /* I: Length of data in buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_FdBlocking**|
  |Description:    |Set a file descriptors blocking mode.|
  |Thread Safe:    | Yes|
  |Returns:        |R_OK   - Mode set.<br>R_FAIL - Couldnt set mode.|
  |Prototype:      |`int _SL_FdBlocking( int nFd /* File descr to perform action on*/, int nBlock ) /* Block (1) or non-blocking (0) */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_AcceptClient**|
  |Description:    |Accept an incoming request from a client. Builds a duplicate table entry for the client (if one doesnt already exist) and allocates a unique Channel Id to it.|
  |Thread Safe:    | No, ensures only SL library thread may enter.|
@@ -85,12 +91,16 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM  - Memory exhaustion.|
  |Prototype:      |`int _SL_AcceptClient( UINT nServerSd /* I: Server Socket Id */, SL_NETCONS *spServer /* I: Server descr record */, SL_NETCONS **spNewClnt ) /* O: New client */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_GetPortNo**|
  |Description:    |Get valid port number from structures.|
  |Thread Safe:    | Yes|
  |Returns:        |Port Number.|
  |Prototype:      |`UINT _SL_GetPortNo( SL_NETCONS *spNetCon ) /* I: Connection description */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_Close**|
  |Description:    |Close a client or server connection.|
  |Thread Safe:    | No, forces SL thread entry only.|
@@ -98,6 +108,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`int _SL_Close( SL_NETCONS *spNetCon /* I: Connection to sever */, UINT nDoCallback ) /* I: Perform closure callback? */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_ConnectToServer**|
  |Description:    |Attempt to make a connection with a remote server.|
  |Thread Safe:    | No, forces SL thread entry only.|
@@ -105,6 +117,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM    - Memory exhaustion.<br>E_NOSOCKET - Couldnt allocate a socket for connection.|
  |Prototype:      |`int _SL_ConnectToServer( SL_NETCONS *spNetCon )|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_ReceiveFromSocket**|
  |Description:    |Receive data from a given socket, growing the receive buffer if needed.|
  |Thread Safe:    | No, forces SL thread entry only.|
@@ -112,6 +126,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM   - Memory exhaustion.<br>E_BADPARM - Bad parameters passed to function.<br>E_NOSERVICE - No service on socket.|
  |Prototype:      |`int    _SL_ReceiveFromSocket( SL_NETCONS    *spNetCon )    /* IO: Active connection */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_ProcessRecvBuf**|
  |Description:    |Process the data held in a network connection's receive buffer. If a complete packet has been assembled and passed a CRC check, pass the data to the subscribing application via its callback.|
  |Thread Safe:    | No, forces SL thread entry only.|
@@ -119,6 +135,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM    - Memory exhaustion.<br>E_NOSOCKET - Couldnt allocate a socket for connection.|
  |Prototype:      |`int _SL_ProcessRecvBuf( SL_NETCONS *spNetCon )`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_ProcessWaitingPorts**|
  |Description:    |
  |Thread Safe:    | No, forces SL Thread only.|
@@ -126,6 +144,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_BADSELECT  - Internal failure causing select to fail.<br>E_NONWAITING - No sockets waiting processing.|
  |Prototype:      |`int _SL_ProcessWaitingPorts( ULNG nHibernationPeriod )    /* I: Select sleep*/`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_ProcessCallbacks**|
  |Description:    |Activate any callbacks whose timers are active and have expired.|
  |Thread Safe:    | No, only allows SL Thread.|
@@ -133,24 +153,32 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`ULNG _SL_ProcessCallbacks( void )`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_HostIPtoString**|
  |Description:    |Convert a given IP address into a string dot notation.|
  |Thread Safe:    | No, API only allows one thread at a time.|
  |Returns:        |16bit CRC|
  |Prototype:      |`UCHAR *SL_HostIPtoString( ULNG lIPaddr ) /* I: IP address to convert */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_GetIPaddr**|
  |Description:    |Get the Internet address of the local machine or a named machine.|
  |Thread Safe:    | No, API only allows one thread at a time.|
  |Returns:        |R_OK   - IP address obtained.<br>R_FAIL - IP address not obtained.|
  |Prototype:      |`int SL_GetIPaddr( UCHAR *szHost /* I: Hostname string */, ULNG *lIPaddr ) /* O: Storage for the Internet Addr */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_GetService**|
  |Description:    |Get the TCP/UDP service port number from the Services File.|
  |Thread Safe:    | No, API Function only allows one thread at a time.|
  |Returns:        |R_OK   - Service port obtained.<br>R_FAIL - Service port not obtained.|
  |Prototype:      |`int SL_GetService( UCHAR *szService /* I: Service Name string */, UINT *nPortNo ) /* O: Storage for the Port Number */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_Init**|
  |Description:    |Initialise communication variables and connect or setup listening for required socket connections. |
  |Thread Safe:    | No, API function only allows one thread at a time.|
@@ -158,6 +186,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM  - Memory exhaustion.|
  |Prototype:      |`int SL_Init( UINT nSockKeepAlive /* I: Socket keep alive time period */, UCHAR *szErrMsg ) /* O: Error message buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_Exit**|
  |Description:    |Decommission the Comms module ready for program termination or re-initialisation.|
  |Thread Safe:    | No, API function, only allows one thread at a time.|
@@ -165,18 +195,24 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |
  |Prototype:      |`int SL_Exit( UCHAR *szErrMsg ) /* O: Error message buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_PostTerminate**|
  |Description:    |Post a request for the program to terminate as soon as possible.|
  |Thread Safe:    | Yes|
  |Returns:        |Non.|
  |Prototype:      |`void    SL_PostTerminate( void )`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_GetChanId**|
  |Description:    |Get a channel Id from a given IP addr. If the IP addr doesnt exist or is still pending a connection, return 0 as an error.|
  |Thread Safe:    | No, API function only allows one thread at a time.|
  |Returns:        |> 0  - Channel Id associated with IP address.<br>0    - Couldnt find an associated channel.|
  |Prototype:      |`UINT SL_GetChanId( ULNG lIPaddr )    /* I: Address to xlate */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_RawMode**|
  |Description:    |Function to switch a channel into/out of raw mode processing. Raw mode processing foregoes all forms of checking and is typically used for connections with a non SL lib server/client.|
  |Thread Safe:    | No, API Function, only allows one thread at a time.|
@@ -184,6 +220,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`int SL_RawMode( UINT nChanId /* I: Channel to apply change to */, UINT nMode ) /* I: Mode to set channel to */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_AddServer**|
  |Description:    |Add an entry into the Network Connections table as a Server. An entry is built up and a socket created and set listening.|
  |Thread Safe:    | No, API Function, only allows one thread at a time.|
@@ -191,6 +229,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM    - Memory exhaustion.<br>E_BADPARM  - Bad parameters passed.<br>E_EXISTS   - Entry already exists.<br>E_NOSOCKET - Couldnt grab a socket.<br>E_NOLISTEN - Couldnt listen on given port.|
  |Prototype:      |`int SL_AddServer( UINT nPortNo /* I: Port to listen on */, UINT nForkForAccept /* I: Fork prior to accept */, void    (*nDataCallback)() /* I: Data ready callback */, void (*nCntrlCallback)(int, ...) ) /* I: Control callback */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_AddClient**|
  |Description:    |Add an entry into the Network Connections table as a client. Socket creation and connect are left to the kernels discretion.|
  |Thread Safe:    | No, API function, only allows one thread at a time.|
@@ -198,6 +238,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM  - Memory exhaustion.<br>E_EXISTS - A client of same detail exists.|
  |Prototype:      |`int SL_AddClient( UINT nServerPortNo /* I: Server port to talk on */, ULNG lServerIPaddr /* I: Server IP address */, UCHAR *szServerName /* I: Name of Server */, void (*nDataCallback)() /* I: Data ready callback */, void (*nCntrlCallback)(int, ...) ) /* I: Control callback */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_AddTimerCB**|
  |Description:    |Add a timed callback. Basically, a timed callback is a function which gets invoked after a period of time. This function can be invoked once (TCB_ONESHOT), every Xms (TCB_ASTABLE) or a fixed period of time Xms from last execution (TCB_FLIPFLOP). Each callback can pass a predefined variable/pointer, so multiple instances of the same callback can exist, each referring to the same function, but passing different values to it. The callbacks are maintained in a dynamic link list.|
  |Thread Safe:    | No, API Function, only allows single thread at a time.|
@@ -205,6 +247,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_NOMEM  - Memory exhaustion.|
  |Prototype:      |`int SL_AddTimerCB( ULNG lTimePeriod, /* I: Time between callbacks */, UINT nOptions /* I: Option flags on callback */, ULNG lCBData /* I: Data to be passed to cb */, void (*nCallback)() ) /* I: Function to call */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_DelServer**|
  |Description:    |Delete an entry from the Network Connections table and disable the actual communications associated with it.|
  |Thread Safe:    | No, API function allows one thread at a time.|
@@ -212,6 +256,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_BADPARM  - Bad parameters passed.|
  |Prototype:      |`int SL_DelServer( UINT nPortNo )    /* I: Port number that server on */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_DelClient**|
  |Description:    |Delete a client entry from the Network Connections table and free up all resources that it used.|
  |Thread Safe:    | No, API function allows on thread at a time.|
@@ -219,12 +265,16 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`int SL_DelClient( UINT nChanId ) /* I: Channel Id of client to del*/`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_Close**|
  |Description:    |Close a socket connection (Client or Server) based on the given channel ID. Due to the nature of the socket library, this cannot be performed immediately, as nearly always, the application requesting the close is within a socket library callback, and modifying internal structures in this state is fraught with danger.|
  |Thread Safe:    | No, API function, only allows one thread at a time.|
  |Returns:        |Non.|
  |Prototype:      |`int SL_Close( UINT nChanId ) /* I: Channel Id to close */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_SendData**|
  |Description:    |Transmit a packet of data to a given destination identified by it channel Id.|
  |Thread Safe:    | No, API function, only allows one thread at a time.|
@@ -232,6 +282,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_INVCHANID - Invalid channel Id.<br>E_BUSY      - Channel is busy, retry later.<br>E_BADSOCKET - Internal failure on socket, terminal.<br>E_NOSERVICE - No remote connection established yet.|
  |Prototype:      |`int SL_SendData( UINT nChanId /* I: Channel Id to send data on */, UCHAR *szData /* I: Data to be sent */, UINT nDataLen )    /* I: Length of data */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_BlockSendData**|
  |Description:    |Transmit a packet of data to a given destination but ensure it is sent prior to exit. If an error occurs, then return it to the caller. |
  |Thread Safe:    | No, API function, only allows one thread at a time.|
@@ -239,6 +291,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |E_INVCHANID - Invalid channel Id.<br>E_BADSOCKET - Internal failure on socket, terminal.<br>E_NOSERVICE - No remote connection established yet.|
  |Prototype:      |`int SL_BlockSendData( UINT nChanId /* I: Channel Id to send data on */, UCHAR   *szData /* I: Data to be sent */, UINT nDataLen )  /* I: Length of data */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_Poll**|
  |Description:    |Function for programs which cant afford UX taking control of the CPU. This function offers these type of applications the ability to allow comms processing by frequently calling this Poll function.|
  |Thread Safe:    | No, API function, only allows one thread at a time.|
@@ -246,6 +300,8 @@ Generic network communications routines. These form the basis of daemon function
  |<Errno>         |  |
  |Prototype:      |`int SL_Poll( ULNG lSleepTime )`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SL_Kernel**|
  |Description:    |Application process control is passed over to this function and it allocates and manages time/events. The application registers callbacks with this library, and they are invoked as events occur or as time elapses. Control passes out of this function on application completion.|
  |Thread Safe:    | No, Assumes main thread or one control thread.|
@@ -276,42 +332,56 @@ A library of linked list functions for creating, deleting, searching (etc..) lin
  |<Errno>         |E_NOMEM   - Memory exhaustion.<br>E_BADHEAD - Head pointer is bad.<br>E_BADTAIL - Tail pointer is bad.<br>E_NOKEY   - No search key provided.|
  |Prototype:      |`int AddItem( LINKLIST **spHead /* IO: Pointer to head of list */, LINKLIST **spTail /* IO: Pointer to tail of list */, int nMode /* I: Mode of addition to link */, UINT *nKey /* I: Integer based search key */, ULNG *lKey /* I: Long based search key */, UCHAR *szKey /* I: String based search key */, void *spData ) /* I: Address of carried data */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**DelItem**|
  |Description:    |Delete an element from a given linked list. The underlying carried data is not freed, it is assumed that the caller will free that, as it was the caller that allocated it.|
  |Returns:        |R_OK      - Item deleted successfully.<br>R_FAIL    - Failure in deletion, see Errno.|
  |<Errno>         |E_BADHEAD - Head pointer is bad.<br>E_BADTAIL - Tail pointer is bad.<br>E_MEMFREE - Couldnt free memory to sys pool.<br>E_NOKEY   - No search key provided.|
  |Prototype:      |`int DelItem( LINKLIST **spHead /* IO: Pointer to head of list */, LINKLIST **spTail /* IO: Pointer to tail of list */, void *spKey /* I: Addr of item, direct update */, UINT *nKey /* I: Integer based search key */, ULNG *lKey /* I: Long based search key */, UCHAR *szKey ) /* I: String based search key */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**FindItem**|
  |Description:    |Find an element in a given linked list.|
  |Returns:        |NOTNULL    - Item found, address returned.<br>NULL       - Item not found, see Errno.|
  |<Errno>         |E_BADHEAD - Head pointer is bad.<br>E_BADTAIL - Tail pointer is bad.<br>E_NOKEY   - No search key provided.|
  |Prototype:      |`void *FindItem( LINKLIST *spHead /* I: Pointer to head of list */, UINT *nKey /* I: Integer based search key */, ULNG *lKey /* I: Long based search key */, UCHAR *szKey ) /* I: String based search key */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**StartItem**|
  |Description:    |Setup pointers for a complete list scan. Return the top most list 'data item' to caller.|
  |Returns:        |NOTNULL    - Item found, address returned.<br>NULL       - Item not found, see Errno.|
  |<Errno>         |E_BADHEAD - Head pointer is bad.|
  |Prototype:      |`void *StartItem( LINKLIST *spHead /* I: Pointer to head of list */, LINKLIST **spNext ) /* O: Pointer to next item in list */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**NextItem**|
  |Description:    |Move to next item in a given list. Return the current 'data item' to caller.|
  |Returns:        |NOTNULL    - Item found, address returned.<br>NULL       - Item not found, see Errno.|
  |<Errno>         |E_BADPARM - Bad parameter passed to function.|
  |Prototype:      |`void *NextItem( LINKLIST **spNext ) /* O: Pointer to next item in list */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MergeLists**|
  |Description:    |Merge two list together. The Source list is merged into the target list. Lists are re-sorted if required.|
  |Returns:        |R_OK      - Item added successfully.<br>R_FAIL    - Failure in addition, see Errno.|
  |<Errno>         |E_NOMEM   - Memory exhaustion.<br>E_BADHEAD - Head pointer is bad.<br>E_BADTAIL - Tail pointer is bad.<br>E_NOKEY   - No search key provided.|
  |Prototype:      |`int MergeLists( LINKLIST **spDstHead,   /* IO: Pointer to head of dest list */, LINKLIST **spDstTail /* IO: Pointer to tail of dest list */, LINKLIST *spSrcHead /* I: Pointer to head of src list */, LINKLIST *spSrcTail /* I: Pointer to tail of src list */, int nMode ) /* I: Mode of list merging  */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**DelList**|
  |Description:    |Delete an entire list and free memory used by the list and the underlying carried data.|
  |Returns:        |R_OK      - List deleted successfully.<br>R_FAIL    - Failed to delete list, see Errno.|
  |<Errno>         |E_BADHEAD - Head pointer is bad.<br>E_BADTAIL - Tail pointer is bad.|
  |Prototype:      |`int DelList( LINKLIST **spHead /* IO: Pointer to head of list */, LINKLIST **spTail ) /* IO: Pointer to tail of list */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SizeList**|
  |Description:    |Find the total number of elements in a given list by scanning it.|
  |Returns:        |R_OK      - List size calculated.<br>R_FAIL    - Failed to calculate list size, see Errno.|
@@ -329,59 +399,81 @@ Interactive Monitor functionality. Provides a suite of interactive commands (HTM
  |Returns:        |Non.|
  |Prototype:      |`int _ML_HTMLDefaultCB( UINT nChanId /* I: Id - xmit to client*/, UCHAR *szData /* I: Data Buffer */, UINT nDataLen ) /* I: Length of data buf */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_InterpretHTMLRequest**|
  |Description:    |Buffer from an external client (ie. Web Browser) contains a an HTML request. Interpret it into a set of actions through comparisons and deductions.|
  |Returns:        |Non.|
  |Prototype:      |`UINT _ML_InterpretHTMLRequest( ML_MONLIST *spMon /* I: Monitor Desc */, ML_CONLIST *spCon /* I: Connection Desc */, UCHAR *szData )   /* I: Command Buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_InterpretNLRequest**|
  |Description:    |Buffer from an external client contains a natural language command request. Interpret it into a set of actions through comparisons.|
  |Returns:        |Non.|
  |Prototype:      |`UINT _ML_InterpretNLRequest( ML_MONLIST *spMon /* I: Monitor Desc */, ML_CONLIST *spCon /* I: Connection Desc */, UCHAR *szData )   /* I: Command Buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_MonitorCB**|
  |Description:    |When an external client is issuing commands to us, the command data is delivered to this function for processing.|
  |Returns:        |Non.|
  |Prototype:      |`void _ML_MonitorCB( UINT nChanId /* I: Channel data received on */, UCHAR *szData /* I: Buffer containing data */, UINT nDLen ) /* I: Length of data in buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_MonitorCntrl**|
  |Description:    |Interactive monitor control function. WHen a connection is mad or broken with an external client, this function is requested to handle it.|
  |Returns:        |Non.|
  |Prototype:      |`void _ML_MonitorCntrl( int nType /* I: Type of callback */, ... ) /* I: Argument list according to type */`|
-    |
+    
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_MonTerminate**|
  |Description:    |An interactive monitor command to terminate us (the program).|
  |Returns:        |Non.|
  |Prototype:      |`int _ML_MonTerminate( UINT nChanId /* I: Channel to Im session */, UCHAR *szBuf /* I: Remainder of input line */, UINT nBufLen ) /* I: Length of input line */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_Init**|
  |Description:    |Initialise all functionality to allow a remote user to connect with this executing program and issue commands to it.|
  |Returns:        |Non.|
  |Prototype:      |`int ML_Init( UINT nMonPort /* I: Port that monitor service is on */, UINT nServiceType /* I: Type of monitor service. ie HTML */, UCHAR *szServerName /* I: HTTP Server Name Response */, int (*nConnectCB)() /* I: CB on client connection */, int (*nDisconCB)() /* I: CB on client disconnection */, int (*nInterpretOvr)()) /* I: Builtin Interpret override func */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_Exit**|
  |Description:    |Decommission the Monitor module ready for program termination or re-initialisation.|
  |Returns:        |R_OK     - Exit succeeded.<br>R_FAIL   - Couldnt perform exit processing, see errno.|
  |<Errno>         |
  |Prototype:      |`int ML_Exit( UCHAR *szErrMsg ) /* O: Error message buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_Send**|
  |Description:    |Transmit data to a given remote session.|
  |Returns:        |Non.|
  |Prototype:      |`int    ML_Send( UINT nChanId /* I: Channel to Im session */, UCHAR *szBuf /* I: Xmit Data */, UINT nBufLen ) /* I: Length of Xmit Data */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_AddMonCommand**|
  |Description:    |Add a command to the interactive monitors database of recognised reserved words. When a command comes in from an external user, if checks it against its reserved word list for verification and identification.|
  |Returns:        |R_OK     - Command added.<br>R_FAIL   - Couldnt add command, see errno.|
  |<Errno>         |
  |Prototype:      |`int    ML_AddMonCommand( UINT nMonPort /* I: Service Mon Port */, UCHAR *szCommand /* I: Command in text */, int (*nCallback)()) /* I: Command callback */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_DelMonCommand**|
  |Description:    |Delete a command currently active in a monitor channels database of recognised words.|
  |Returns:        |R_OK     - Command deleted.<br>R_FAIL   - Couldnt delete command, see errno.|
  |<Errno>         |
  |Prototype:      |`int    ML_DelMonCommand( UINT nMonPort, /* I: Service Mon Port */, UCHAR *szCommand ) /* I: Command to delete */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ML_Broadcast**|
  |Description:    |Broadcast a message to all listening monitor processes.|
  |Returns:        |R_OK     - Data sent to some/all successfully.<br>R_FAIL   - Couldnt send to any, see Errno.|
@@ -399,66 +491,92 @@ General purpose string processing funtions. Additions to those which exist withi
  |Returns:        |R_OK   - Cannot fail ... will I be eating my words...?|
  |Prototype:      |`int PutCharFromLong( UCHAR *pDestBuf /* O: Destination buffer */, ULNG lVar ) /* I: Variable of type long */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**PutCharFromInt**|
  |Description:    |Place an int type variable into a character buffer in a known byte order. IE. An int is 16 bit, and is placed into the char buffer as MSB (1), LSB (0). Where MSB fits into the first byte of the buffer.|
  |Returns:        |R_OK   - Cannot fail ... see comment above.|
  |Prototype:      |`int PutCharFromInt( UCHAR *pDestBuf /* O: Destination buffer */, UINT lVar ) /* I: Variable of type int */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**GetLongFromChar**|
  |Description:    |Get a long type variable from a character buffer. The byte ordering in the buffer is assumed to be 32bit, MSB(3), 2, 1, LSB (0), where the MSB fits into the first byte of the buffer.|
  |Returns:        |R_OK   - Cannot fail ... will I be eating my words...?|
  |Prototype:      |`ULNG GetLongFromChar( UCHAR *pDestBuf ) /* I: Source buffer to convert */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**GetIntFromChar**|
  |Description:    |Get a long type variable from a character buffer. The byte ordering in the buffer is assumed to be 16bit, MSB(1), LSB(0) where the MSB fits into the first byte of the buffer.|
  |Returns:        |R_OK   - Cannot fail ... will I be eating my words...?|
  |Prototype:      |`UINT GetIntFromChar( UCHAR *pDestBuf ) /* I: Source buffer to convert */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**StrPut**|
  |Description:    |Put a string INTO another string. Same as strcpy BUT it doesnt terminate the destination string.|
  |Returns:        |R_OK   - Cannot fail ... will I be eating my words...?|
  |Prototype:      |`UINT StrPut( UCHAR *spDestBuf /* I: Destination buffer to copy into */, UCHAR *spSrcBuf  /* I: Source buffer to copy from */, UINT nBytes ) /* I: Number of bytes to copy */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**FFwdOverWhiteSpace**|
  |Description:    |Forward a pointer past whitespace in the input buffer.|
  |Returns:        |Non.|
  |Prototype:      |`void FFwdOverWhiteSpace( UCHAR *szInBuf /* I: Input data buffer */, UINT *nPos ) /* IO: Start/End position in buf */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ParseForToken**|
  |Description:    |Parse the input buffer for the next token. A token can be a Alpha/Alphanum word, a numeric, a single character or a string.|
  |Returns:        |Type of Token located.|
  |Prototype:      |`UINT ParseForToken( UCHAR *szInBuf /* I: Input buffer */, UINT *nPos /* IO: Current pos in buffer */, UCHAR *szTokBuf ) /* O: Token output buffer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ParseForString**|
  |Description:    |Get next valid string from input buffer.|
  |Returns:        |Non.|
  |Prototype:      |`int ParseForString( UCHAR *szInBuf /* I: Input buffer */, UINT *nPos /* I: Position in input buffer */, UCHAR *szOutBuf ) /* O: Target buffer for string */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ParseForInteger**|
  |Description:    |Get next valid integer from input buffer.|
  |Returns:        |Non.|
  |Prototype:      |`int ParseForInteger( UCHAR *szInBuf /* I: Input buffer */, UINT *nPos /* I: Position in input buffer */, UINT *nMin /* I: Minimum allowable value */, UINT *nMax /* I: Maximum allowable value */, int *pOutInt ) /* O: Target buffer for integer */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ParseForLong**|
  |Description:    |Get next valid Long from input buffer.|
  |Returns:        |Non.|
  |Prototype:      |`int ParseForLong( UCHAR *szInBuf /* I: Input buffer */, UINT *nPos /* I: Position in input buffer */, long *lMin /* I: Minimum allowable value */, long *lMax /* I: Maximum allowable value */, long *pOutLong )   /* O: Target buffer for Long */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**StrRTrim**|
  |Description:    |A function to trim off all trailing spaces for a given string. The function works by starting at the end of a null terminated string and looking for the first non-space character. It then places a null terminator at the new location.|
  |Returns:        |Pointer to new string.|
  |Prototype:      |`char *StrRTrim( char *szSrc ) /* IO: Base string to trim */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**StrCaseCmp**|
  |Description:    |A function to perform string compares regardless of character case. Provided mainly for operating systems that dont possess such functionality.|
  |Returns:        |0 - Strings compare.<br>> 0 <br>< 0|
  |Prototype:      |`int StrCaseCmp( const char *szSrc /* I: Base string to compare against */, const char *szCmp ) /* I: Comparator string */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**StrnCaseCmp**|
  |Description:    |A function to perform string compares regardless of character case for a specified number of characters within both strings. Provided mainly for operating systems that dont possess such functionality.|
  |Returns:        |0 - Strings compare.<br>> 0 <br>< 0|
  |Prototype:      |`int StrnCaseCmp( const char *szSrc /* I: Base string to compare against */, const char *szCmp /* I: Comparator string */, size_t nCount ) /* I: Number of bytes to compare */`|
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**SplitFQFN**|
  |Description:    |A function to split a fully qualified filename into a directory and filename components.|
  |Returns:        |R_OK   - Filename split.<br>R_FAIL - Couldnt split due to errors, ie. memory.|
@@ -1047,36 +1165,50 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _AUPL_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_AUPL_ValidatePath|
  |Description:    |Function to validate the existence of a path. |
  |Returns:        |SDD_FAIL- Couldnt validate PATH.<br>SDD_OK    - PATH validated. |
  |Prototype:      |`int _AUPL_ValidatePath( UCHAR *pszPath ) /* I: Path to validate */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_AUPL_ValidateFile|
  |Description:    |Function to validate the existence of a file or to validate that a file can be created. |
  |Returns:        |SDD_FAIL- Couldnt obtain Filename or validate it.<br>SDD_OK    - Filename obtained and validated. |
  |Prototype:      |`int _AUPL_ValidateFile( UCHAR *pszPath /* I: Path to file */, UCHAR *pszFile /* I: File to validate */, UINT nWriteFlag ) /* I: Read = 0, Write = 1 */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_AUPL_PlayZ|
  |Description:    |Function to play a compressed audio file. Method of attach is to launch a child which is the actual decompressor, this feeds data back via the stdout of the child to our stdin. The data is then buffered in a round robin fashion and fed to the audio DSP hardware. |
  |Returns:        |SDD_FAIL- Command failed during execution.<br>SDD_OK    - Command executed successfully. |
  |Prototype:      |`int _AUPL_PlayZ( UCHAR *pszAudioPath /* I: Path to Audio File */, UCHAR *pszAudioFile /* I: Audio Filename */, int (*fSendDataCB)(UCHAR *, UINT) /* I: Func for returning data */, UCHAR *szErrMsg ) /* O: Error message generated */`jjjjj |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**aupl_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int aupl_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**aupl_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int aupl_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
 
  |**Function**:   |**aupl_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int aupl_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**aupl_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1091,111 +1223,155 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _FTPX_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_GetMode|
  |Description:    |Function to scan an input buffer and determine the mode of FTP operation that the caller requires (Binary or Ascii). If no mode is provided then default to binary. |
  |Returns:        |Mode Flag - 1 = Binary mode selected.<br>- 0 = Ascii mode selected. |
  |Prototype:      |`int _FTPX_GetMode( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen ) /* I: Len of data */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_GetWriteData|
  |Description:    |Function to scan an input buffer, verify that it has data in it, extract the data and store in the opened file stream and set the start flag if the block is the final block. |
  |Returns:        |SDD_FAIL- Bad block of data or error writing to file.<br>SDD_OK    - Block obtained and stored. |
  |Prototype:      |`int _FTPX_GetWriteData( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, FILE *fpFile /* IO: Opened file stream */, int *nLast /* O: Last block flag */, UCHAR *szErrMsg ) /* O: Any resultant error msg */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PutReadData|
  |Description:    |Function to read an open stream and transmit the data contents to the caller via the callback mechanism.  |
  |Returns:        |SDD_FAIL- Couldnt obtain PATH.<br>SDD_OK    - PATH obtained. |
  |Prototype:      |`int _FTPX_PutReadData( FILE *fpFile /* I: Stream to read from */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send data to */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PIDataCB|
  |Description:    |Function to handle any control information passed back from the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_PIDataCB( UINT nChanId /* I: Channel data arrived on */, UCHAR *szData /* I: Actual data */, UINT nDataLen ) /* I: Length of data */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PICtrlCB|
  |Description:    |Function to handle any control callbacks during connectivity with the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_PICtrlCB( int nType /* I: Type of callback */, ... ) /* I: Var args */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_DTPDataCB|
  |Description:    |Function to handle any data passed back from the FTP server on the data transfer connection.. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_DTPDataCB( UINT nChanId /* I: Channel data arrived on */, UCHAR *szData /* I: Actual data */, UINT nDataLen )  /* I: Length of data */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_DTPCtrlCB|
  |Description:    |Function to handle any control callbacks on the Data Transfer connection with the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_DTPCtrlCB( int nType /* I: Type of callback */, ... ) /* I: Var args */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PIGetResponse|
  |Description:    |Function to get a response code from the FTP server. |
  |Returns:        |Response Code. |
  |Prototype:      |`int _FTPX_PIGetResponse( void )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PISendCmd|
  |Description:    |Function to send a command to an FTP server. |
  |Returns:        |SDD_FAIL - FTP Server failed to respond, see szErrMsg.<br>SDD_OK   - Command sent successfully. |
  |Prototype:      |`int _FTPX_PISendCmd( UCHAR *szCmd /* I: Command to send */, UINT *panReqResponses /* I: Array of req resp */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PIGetDTPResponse|
  |Description:    |Function to get a response code during a DTP transfer. |
  |Returns:        |Response Code. |
  |Prototype:      |`int _FTPX_PIGetDTPResponse( void )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_PISendDTPCmd|
  |Description:    |Function to send a command to an FTP server which will invoke a DTP channel for data transfer. |
  |Returns:        |SDD_FAIL - FTP Server failed to respond, see szErrMsg.<br>SDD_OK   - Command sent successfully. |
  |Prototype:      |`int _FTPX_PISendDTPCmd( UCHAR *szCmd /* I: Command to send */, UINT *panReqResponses /* I: Allowed responses */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_SetMode|
  |Description:    |Function to setup the transfer mode between the FTP server and the driver. |
  |Returns:        |SDD_FAIL - Failed to set transfer mode, critical error.<br>SDD_OK     - Mode set. |
  |Prototype:      |`int _FTPX_SetMode( UINT nBinaryMode /* I: Select binary mode = TRUE */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_SetCwd|
  |Description:    |Function to set the FTP servers current working directory. |
  |Returns:        |SDD_FAIL - Failed to set directory to that specified.<br>SDD_OK     - Current Working Directory set. |
  |Prototype:      |`int _FTPX_SetCwd( UCHAR *szPath /* I: Path to set CWD */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_FTPInit|
  |Description:    |Function to initialise a connection with an FTP server. The caller provides the name/IP address of the server and the user name/password to complete the connection. |
  |Returns:        |SDD_FAIL - Couldnt make connection with given details.<br>SDD_OK     - FTP connection made. |
  |Prototype:      |`int _FTPX_FTPInit( UCHAR *szFTPServer /* I: Name of FTP server */, UCHAR *szUserName /* I: User name to login with */, UCHAR *szPassword /* I: Password for login */, UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_FTPClose|
  |Description:    |Function to close a connected FTP connection and tidy up in preparation for next task. |
  |Returns:        |SDD_FAIL - Failed to close properly, library wont work again.<br>SDD_OK     - Closed. |
  |Prototype:      |`int _FTPX_FTPClose( UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_FTPRenFile|
  |Description:    |Function to rename a file on a remote FTP server. |
  |Returns:        |SDD_FAIL - Failed to rename the required file.<br>SDD_OK     - File renamed successfully. |
  |Prototype:      |`int _FTPX_FTPRenFile( UCHAR *szPath /* I: Path to remote file */, UCHAR *szSrcFile /* I: Original remote file name */, UCHAR *szDstFile /* I: New remote file name */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_FTPRcvFile|
  |Description:    |Function to initiate a file transfer from the FTP server to the current machine file system. |
  |Returns:        |SDD_FAIL - Failed to complete file transfer.<br>SDD_OK     - File received successfully. |
  |Prototype:      |`int _FTPX_FTPRcvFile( UCHAR *szRcvFile /* I: Name of file to store in */, UCHAR *szPath /* I: Path to remote file */, UCHAR *szFile /* I: Remote file */, UINT nBinaryMode /* I: Select binary transfer mode */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_FTPXmitFile|
  |Description:    |Function to initiate a file transfer from the current machine file system to the FTP server. |
  |Returns:        |SDD_FAIL - Failed to complete file transfer.<br>SDD_OK     - File transmitted successfully. |
  |Prototype:      |`int _FTPX_FTPXmitFile( UCHAR *szXmitFile /* I: Name of file to transmit */, UCHAR *szPath /* I: Path to remote destination */, UCHAR *szFile /* I: Remote file */, UINT nBinaryMode /* I: Select binary transfer Mode */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ftpx_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int ftpx_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ftpx_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int ftpx_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ftpx_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int ftpx_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**ftpx_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1210,16 +1386,22 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int java_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**java_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int java_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**java_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int java_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**java_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1234,46 +1416,64 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained and validated. |
  |Prototype:      |`int _ODBC_GetArg( UCHAR *szArgType /* I: Type of Arg to scan for */, UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR **pszArg ) /* O: Pointer to Arg */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_LogODBCError|
  |Description:    |Function to dump an error message/code from the ODBC driver to the log device. Typically used for debugging. |
  |Returns:        |No returns. |
  |Prototype:      |`void _ODBC_LogODBCError( HSTMT hStmt )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_RunSql|
  |Description:    |Function to execute a given buffer of SQL on the current database and return resultant data to the original caller. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_RunSql( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_ListDB|
  |Description:    |Function to list all the names of databases available on the currently open data source. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListDB( int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_ListTables|
  |Description:    |Function to list all names of tables in a given database (or current database if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListTables( UCHAR *snzDataBuf  /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_ListCols|
  |Description:    |Function to list all names and attributes of columns in a given table in a given database (or current database/table if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListCols( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**odbc_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrMsg.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int odbc_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**odbc_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrMsg.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int odbc_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**odbc_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int odbc_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**odbc_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1288,61 +1488,85 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _SCMD_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_ValidatePath|
  |Description:    |Function to validate the existence of a path. |
  |Returns:        |SDD_FAIL- Couldnt validate PATH.<br>SDD_OK    - PATH validated. |
  |Prototype:      |`int _SCMD_ValidatePath( UCHAR *pszPath ) /* I: Path to validate */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_ValidateFile|
  |Description:    |Function to validate the existence of a file or to validate that a file can be created. |
  |Returns:        |SDD_FAIL- Couldnt obtain Filename or validate it.<br>SDD_OK    - Filename obtained and validated. |
  |Prototype:      |`int _SCMD_ValidateFile( UCHAR *pszPath /* I: Path to file */, UCHAR *pszFile /* I: File to validate */, UINT nWriteFlag ) /* I: Read = 0, Write = 1 */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_ValidateTime|
  |Description:    |Function to validate a time value given as an ascii string. |
  |Returns:        |SDD_FAIL- Couldnt obtain a TIME or validate it.<br>SDD_OK    - TIME obtained and validated. |
  |Prototype:      |`int _SCMD_ValidateTime( UCHAR *pszTime /* I: Time to verify */, ULNG *lTime ) /* O: Time in seconds */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_Exec|
  |Description:    |Function to execute a given command via a fork and exec, attaching the parent to the childs I/O so that any data output by the child can be captured by the parent and fed back to the caller. |
  |Returns:        |SDD_FAIL- Command failed during execution.<br>SDD_OK    - Command executed successfully. |
  |Prototype:      |`int _SCMD_Exec( int nTimedExec /* I: Is this a timed exec (T/F)? */, UCHAR *pszPath /* I: Path to command */, UCHAR *pszCmd /* I: Command name */, UCHAR *pszArgs /* I: Arguments to command */, ULNG lTimeToExec /* I: Time to execution */, int (*fSendDataCB)(UCHAR *, UINT) /* I: Func for returning data */, UCHAR *szErrMsg ) /* O: Error message generated */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_GetWriteData|
  |Description:    |Function to scan an input buffer, verify that it has data in it, extract the data and store in the opened file stream and set the start flag if the block is the final block. |
  |Returns:        |SDD_FAIL- Bad block of data or error writing to file.<br>SDD_OK    - Block obtained and stored. |
  |Prototype:      |`int _SCMD_GetWriteData( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, FILE *fpFile /* IO: Opened file stream */, int *nLast /* O: Last block flag */, UCHAR *szErrMsg ) /* O: Any resultant error msg */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_PutReadData|
  |Description:    |Function to read an open stream and transmit the data contents to the caller via the callback mechanism.  |
  |Returns:        |SDD_FAIL- Couldnt obtain PATH.<br>SDD_OK    - PATH obtained. |
  |Prototype:      |`int _SCMD_PutReadData( FILE *fpFile /* I: Stream to read from */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send data to */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_MoveFile|
  |Description:    |Function to move a file from one location/name to another. This is performed as a copy and unlink operation because the underlying may not support moves across file systems. |
  |Returns:        |SDD_FAIL- An error whilst moving file, see szErrMsg.<br>SDD_OK    - File moved successfully. |
  |Prototype:      |`int _SCMD_MoveFile( UCHAR *pszSrcPath /* I: Path to source file */, UCHAR *pszSrcFile /* I: Source File */, UCHAR *pszDstPath /* I: Path to dest file */, UCHAR *pszDstFile /* I: Dest File */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_DeleteFile|
  |Description:    |Function to delete a file from the given path. |
  |Returns:        |SDD_FAIL- An error whilst moving file, see szErrMsg.<br>SDD_OK    - File moved successfully. |
  |Prototype:      |`int _SCMD_DeleteFile( UCHAR *pszDelPath /* I: Path to file */, UCHAR *pszDelFile /* I: File to delete */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**scmd_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int scmd_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**scmd_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int scmd_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**scmd_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int scmd_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**scmd_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1357,41 +1581,57 @@ The methods in the SDD Library are described below ordered by the driver to whic
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained and validated. |
  |Prototype:      |`int _SYBC_GetArg( UCHAR *szArgType /* I: Type of Arg to scan for */, UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR **pszArg ) /* O: Pointer to Arg */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SYBC_RunSql|
  |Description:    |Function to execute a given buffer of SQL on the current database and return resultant data to the original caller. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_RunSql( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**sybc_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int sybc_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SYBC_ListDB|
  |Description:    |Function to list all the names of databases available on the currently open data source. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListDB( int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SYBC_ListTables|
  |Description:    |Function to list all names of tables in a given database (or current database if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListTables( UCHAR *snzDataBuf  /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SYBC_ListCols|
  |Description:    |Function to list all names and attributes of columns in a given table in a given database (or current database/table if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListCols( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**sybc_CloseService|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int    sybc_CloseService( UCHAR        *szErrMsg )    /* O: Error message if failed */ |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**sybc_ProcessRequest|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int sybc_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**sybc_ProcessOOB|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
@@ -1414,41 +1654,57 @@ The methods in the VDW Library are as follows. If a method begins with '_' then 
  |Returns:        |VDWD_OK        - Configuration obtained.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int GetConfig( int argc /* I: CLI argument count */.  UCHAR **argv /* I: CLI argument contents */, char **envp /* I: Environment variables */, UCHAR *szErrMsg ) /* O: Any generated error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDInit|
  |Description:    |Initialisation of variables, functionality, communications and turning the process into a daemon. |
  |Returns:        |VDWD_OK        - Initialised successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDInit( UCHAR *szErrMsg ) /* O: Generated error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDClose|
  |Description:    |Function to perform closure of all used resources within the module. |
  |Returns:        |VDWD_OK        - Closed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDClose( UCHAR *szErrMsg ) /* O: Generated error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDSentToClient|
  |Description:    |Function to send data from this daemon back to the relevant client. |
  |Returns:        |SDD_OK        - Data sent successfully.<br>SDD_FAIL    - Failure in sending data. |
  |Prototype:      |`int VDWDSendToClient( UCHAR *snzData /* I: Data to send */, UINT nDataLen ) /* I: Length of data */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDInitService|
  |Description:    |Function to call a given drivers initialisation function. |
  |Returns:        |VDWD_OK        - Service was initialised successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDInitService( int nServiceType /* I: Type of service*/, SERVICEDETAILS *sServiceDet /* I: Service Data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDCloseService|
  |Description:    |Function to call a given drivers closedown function. |
  |Returns:        |VDWD_OK        - Service was closed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDCloseService( int nServiceType /* I: Type of service*/, UCHAR *szErrMsg )    /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDProcessRequest|
  |Description:    |Function to call a given drivers function to process a service request. |
  |Returns:        |VDWD_OK        - Request was processed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDProcessRequest( int nServiceType /* I: Type of service */, UCHAR *snzData /* I: Data Buffer */, UINT nDataLen /* I: Len of Data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDDataCallback|
  |Description:    |Function which is registered as a callback and is called every time data arrives from a new client. |
  |Returns:        |MDC_OK        - Closed successfully.<br>MDC_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDDataCallback( UCHAR *snzData /* I: Buffer containing data */, int nDataLen /* I: Length of data in buffer */, UCHAR *szErrMsg )  /* O: Error messages generated */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**VDWDOOBCallback|
  |Description:    |Function to take action on out of band commands from the MDC layer. Out of band messages are generally commands which need to be actioned upon immediately, so they are passed up into the Drivers out of band processing function.  |
  |Returns:        |No returns. |
@@ -1472,31 +1728,43 @@ The methods in the MDC Library are described below ordered by the functionality 
  |Returns:        |MDC_FAIL- Couldnt transmit an ACK message to the client.<br>MDC_OK    - ACK sent successfully. |
  |Prototype:      |`int _MDC_SendACK( void )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SendNAK** |
  |Description:    |Function to send a negative acknowledge to the client in to a data block which arrived incorrectly or a request which couldnt be processed successfully. |
  |Returns:        |MDC_FAIL- Couldnt transmit a NAK message to the client.<br>MDC_OK    - NAK sent successfully. |
  |Prototype:      |`int _MDC_SendNAK( UCHAR szErrMsg /* I: Error msg to send with NAK */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_ServerCntlCB** |
  |Description:    |A function to handle any communications control callbacks that are generated as a result of MDC_Server being executed.  |
  |Returns:        |No Returns. |
  |Prototype:      | `void _MDC_ServerCntlCB( int nType /* I: Type of callback */, ...  /* I: Arg list according to type */` ) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_ServerDataCB** |
  |Description:    |A function to handle any data callbacks that are generated as a result of data arriving during an MDC_Server execution. |
  |Returns:        |No Returns. |
  |Prototype:      |`void _MDC_ServerDataCB( UINT nChanId / I: Channel data rcv on */, UCHAR szData /* I: Rcvd data */, UINT nDataLen /* I: Rcvd data length */)` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_Server** |
  |Description:    |Entry point into the Meta Data Communications for a server process. This function initialises all communications etc and then runs the given user callback to perform any required actions. |
  |Returns:        |MDC_FAIL- Function terminated due to a critical error, see Errno for exact reason code.<br>MDC_OK    - Function completed successfully without error. |
  |Prototype:      |`int MDC_Server( UINT nPortNo /* I: TCP/IP port number */, UCHAR szService /* I: Name of TCP/IP Service */, int (fLinkDataCB) /* I: User function callback */, (UCHAR , int, UCHAR ), void (fControlCB)(UCHAR)  /* I: User control callback */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_ReturnData** |
  |Description:    |Function called by user code to return any required data to a connected client. This function can only be called in response to a callback 'from the MDC layer to the user code' which has provided data.  |
  |Returns:        |MDC_FAIL- An error occurred in transmitting the given data block to the client process, see Errno for exact reason code.<br> MDC_OK    - Data packet was transmitted successfully. |
  |Prototype:      |`int MDC_ReturnData( UCHAR snzDataBuf /* I: Data to return */, int nDataLen /* I: Length of data */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_TimerCB** |
  |Description:    |Function to allow user code to register a callback event which is activated upon a timer expiring. The user provides the frequency and a function to callback and the MDC schedules it. |
  |Returns:        |No Return Values. |
@@ -1511,116 +1779,162 @@ The methods in the MDC Library are described below ordered by the functionality 
  |Returns:        |    void |
  |Prototype:      |`void _MDC_DataCB(UINT nChanId, UCHAR *szData, UINT nDataLen) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_CtrlCB** |
  |Description:    |This function is called back when control information is received on any of the service connections |
  |Returns:        |    void |
  |Prototype:      |`void _MDC_CtrlCB(int nType, ...) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SendPacket** |
  |Description:    |Send a packet to a daemon |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_SendPacket(UINT nChanId, char cPacketType, UCHAR *psnzBuf, UINT nBuflen) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_GetSrvRqtReply** |
  |Description:    |Get reply to a service request packet |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_GetSrvRqtReply(UINT nChanId, char *pcPacketType) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_CreateChStatus** |
  |Description:    |Make a new Channel status structure and add to linked list |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_CreateChStatus(UINT nChanId)         /* Channel ID */ |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_DelChStatus** |
  |Description:    |Delete an item from the Channel status linked list |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_DelChStatus(UINT nChanId)         /* Channel ID */ |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SetChState** |
  |Description:    |Set Channel State to the given value |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_SetChState( UINT nChanId /* Channel ID */, CHSTATE eNewState  /* New state  */ ) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SetSRResult** |
  |Description:    |Set Channel Send Request result |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_SetSRResult( UINT nChanId /* Channel ID */, UINT bResult /* Send Request result */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_GetSRResult** |
  |Description:    |Get Channel Send Request result |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_GetSRResult( UINT nChanId /* Channel ID */, UINT *bResult /* Send Request result */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SetUserCB** |
  |Description:    |Set Send Request call back to the given value |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_SetUserCB( UINT nChanId /* Channel ID */, void (*UserCB) (UINT, UCHAR *, UINT) /* call back */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_GetChState** |
  |Description:    |Get Channel State for a given channel |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_GetChState( UINT nChanId /* Channel ID */, CHSTATE *eState /* Channel state  */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_GetNAKErrStr** |
  |Description:    |Get pointer to NAK error string |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_GetNAKErrStr( UINT nChanId /* Channel ID */, UCHAR **ppszErrStr /* pointer to pointer to error string */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_GetUserCB** |
  |Description:    |Get User call back for the channel |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_GetUserCB( UINT nChanId /* Channel ID */, void (**UserCB) (UINT, UCHAR *, UINT /* User call back */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_PrintErrMsg** |
  |Description:    |Print error message text |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_PrintErrMsg( UCHAR *psnzErrMsg /* Error message none terminated */, UINT nBufLen /* Buffer Length  */) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_WaitOnSndReq** |
  |Description:    |Block until send request completes |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int _MDC_WaitOnSndReq(UINT nChanId) /* Channel ID  */  |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_SendRequest** |
  |Description:    |Send a request to a driver |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int MDC_SendRequest( UINT nChanId  /* I: Channel to send message on */,  UCHAR *szData  /* I: Data to send */, UINT nDataLen /* I: Length of data */, void (*DataCB) (UINT, UCHAR *, UINT) /* I: call back function for data */ ) |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_GetResult** |
  |Description:    |Wait for all replies to a send request and then return result |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int MDC_GetResult( UINT nChanId /* I: Channel ID */, UCHAR **ppszErrorMsg  /* O: Associated error message */)` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_GetStatus** |
  |Description:    |Returns a boolean that indicates whether the Send Request for given channel has completed. |
  |Returns:        |    MDC_OK or MDC_FAIL |
  |Prototype:      |`int MDC_GetStatus( UINT nChanId /* I: Channel ID */, UINT *bSndReqCom  /* O: Indicates whether Send Request has completed */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_CreateService** |
  |Description:    |Create a connection to a daemon so that service requests can be issued |
  |Returns:        |    Channel ID, or negative error code |
  |Prototype:      |`int MDC_CreateService( UCHAR *szHostName /* I: Host for connect*/, UINT *nPortNo /* I: Port host on */, SERVICEDETAILS *serviceDet /* I: Service details */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_SetTimeout** |
  |Description:    |Function to program one of the system timeout values from the default to a user setting. |
  |Returns:        |    MDC_OK     -    Setting changed.<br>MDC_FAIL -    Setting couldnt be changed, see error message. |
  |Prototype:      |`int MDC_SetTimeout( UCHAR *pszWhichTimeout /* I: Timeout to set */, UINT nTimeoutValue /* I: New value */, UCHAR *pszErrMsg /* O: Error message */ )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_CloseService** |
  |Description:    |Close a service channel |
  |Returns:        |    MDC_FAIL or MDC_OK or MDC_BADCONTEXT |
  |Prototype:      |`int MDC_CloseService( UINT nChanId )    /* I: Channel to close */` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_Start** |
  |Description:    |This is called to initialise the MDC Comms. |
  |Returns:        |    MDC_FAIL or MDC_OK |
  |Prototype:      |`int MDC_Start( void )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_End** |
  |Description:    |This is called to shutdown the MDC Comms. |
  |Returns:        |    MDC_FAIL or MDC_OK |
  |Prototype:      |`int MDC_End( void )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**MDC_ChangeService** |
  |Description:    |Change Service for an existing daemon connection |
  |Returns:        |    MDC_OK, MDC_FAIL, MDC_NODAEMON, MDC_NOSERVICE, MDC_BADPARMS |
@@ -1635,6 +1949,8 @@ The methods in the MDC Library are described below ordered by the functionality 
  |Returns:        |MDC_FAIL- Couldnt initialise library.<br> MDC_OK    - Library initialised. |
  |Prototype:      |`int    _MDC_Init( void  )` |
 
+ |                |                                                                               |
+ | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_Terminate** |
  |Description:    |Function to shutdown the MDC library. After a successful shutdown, _MDC_Init may be called to re-initialise the library. If MDC_Terminate fails, program exit is advised. |
  |Returns:        |MDC_FAIL- Couldnt perform a clean shutdown.<br>MDC_OK    - Library successfully shutdown. |
