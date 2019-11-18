@@ -1,0 +1,3 @@
+#! /bin/csh
+
+/dvlp/VDW/1bin/vdwd -m 2 -l /dvlp/VDW/log/`hostname`.log &

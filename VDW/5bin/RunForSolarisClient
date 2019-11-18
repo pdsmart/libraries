@@ -1,0 +1,4 @@
+#! /bin/csh
+
+setenv LD_LIBRARY_PATH /dvlp/third/ilog/views/lib/sparc_4_4.0:/dvlp/third/contrib/SunOS:/usr/motif/lib:/usr/openwin/lib:/dvlp/odbc/dlls:/dvlp2/sybase/syb1002_SunOS5/lib:/usr/ucblib
+/dvlp/VDW/5bin/vdwd -m 0 > /dvlp/VDW/log/`hostname`.log &

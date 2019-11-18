@@ -1,0 +1,184 @@
+#!/bin/csh
+#******************************************************************************
+#* Product:       #     # #     #         #         ###   ######
+#*                #     #  #   #          #          #    #     #
+#*                #     #   # #           #          #    #     #
+#*                #     #    #            #          #    ######
+#*                #     #   # #           #          #    #     #
+#*                #     #  #   #          #          #    #     #
+#*                 #####  #     # ####### #######   ###   ######
+#*
+#* File:          build
+#* Description:   Build description file for making different versions of the
+#*                UX library.
+#* Version:       %I%
+#* Dated:         %D%
+#* Copyright:     P.D. Smart, 1994-2019
+#*
+#* History:       1.0  - Initial Release.
+#*
+#******************************************************************************
+#* This source file is free software: you can redistribute it and#or modify
+#* it under the terms of the GNU General Public License as published
+#* by the Free Software Foundation, either version 3 of the License, or
+#* (at your option) any later version.
+#*
+#* This source file is distributed in the hope that it will be useful,
+#* but WITHOUT ANY WARRANTY; without even the implied warranty of
+#* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#* GNU General Public License for more details.
+#*
+#* You should have received a copy of the GNU General Public License
+#* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#******************************************************************************
+
+# Work out architecture we are compiling on..
+#
+setenv ARCH `uname -s`
+setenv ARCH ${ARCH}`uname -r | cut -c1`
+
+# Work out arguments and decide on actions from there.
+#
+if( $#argv > 0 ) then
+
+    switch("$argv[1]")
+
+        case "save":
+            make -f Makefile clean
+            sccs delta SCCS
+            exit 0
+
+        case "install":
+            echo "Installing libraries and header files."
+            echo -n "Please enter 'vdwd' "
+            su - vdwd <<EOF
+                    cp /dvlp/ux/1lib/libux.a ~/1lib/.
+                    cp /dvlp/ux/4lib/libux.a ~/4lib/.
+                    cp /dvlp/ux/5lib/libux.a ~/5lib/.
+                    cp /dvlp/ux/ux.h ~/include/.
+                    cp /dvlp/ux/ux_dtype.h ~/include/.
+                    cp /dvlp/ux/ux_comms.h ~/include/.
+                    cp /dvlp/ux/ux_comon.h ~/include/.
+EOF
+            exit 0
+
+        case "zpu":
+            setenv ARCH 'ZPU'
+            set makecmd="libux"
+            breaksw
+
+        default:
+            # If the command is not one this script recognises then pass on to
+            # the makefile.
+            #
+            set makecmd="$argv[1]"
+    endsw
+else
+    set makecmd="libux"
+endif
+
+# Build according to parameter supplied.
+#
+switch ($ARCH)
+    case "SunOS4":
+        setenv    OS           "SUNOS"
+        setenv    OSVER        4
+        echo "SunOS operating system build"
+
+        if( ! -r .sunos ) then
+            \rm -f .solaris
+            \rm -f .sunos
+            \rm -f .linux
+            \rm -f .zpu
+            touch .sunos
+            chmod 777 .sunos
+            make -f Makefile clean $makecmd
+            set result = $status
+        else
+            make -f Makefile $makecmd
+            set result = $status
+        endif
+        if( $result == 0 && -r libux.a ) then
+            \rm -f ${OSVER}lib/libux.a
+            ranlib ./libux.a
+            \mv -f libux.a ${OSVER}lib
+        endif
+        breaksw
+
+    case "SunOS5":
+        setenv    OS           "SOLARIS"
+        setenv    OSVER        5
+        echo "Solaris operating system build"
+
+        if( ! -r .solaris ) then
+            \rm -f .solaris
+            \rm -f .sunos
+            \rm -f .linux
+            \rm -f .zpu
+            touch .solaris
+            chmod 777 .solaris
+            make -f Makefile clean $makecmd
+            set result = $status
+        else
+            make -f Makefile $makecmd
+            set result = $status
+        endif
+        if( $result == 0 && -r libux.a ) then
+            \rm -f ${OSVER}lib/libux.a
+            \mv -f libux.a ${OSVER}lib
+        endif
+        breaksw
+
+    case "Linux2":
+    case "Linux4":
+        setenv    OS           "LINUX"
+        setenv    OSVER        1
+        echo "Linux operating system build"
+        echo ""
+        if( ! -r .linux ) then
+            \rm -f .sunos
+            \rm -f .solaris
+            \rm -f .linux
+            \rm -f .zpu
+            touch .linux
+            chmod 777 .linux
+            make -f Makefile clean $makecmd
+            set result = $status
+        else
+            make -f Makefile $makecmd
+            set result = $status
+        endif
+        if( $result == 0 && -r libux.a ) then
+            \rm -f ${OSVER}lib/libux.a
+            \mv -f libux.a ${OSVER}lib
+        endif
+        breaksw
+
+    case "ZPU":
+        setenv    OS           "ZPU"
+        setenv    OSVER        1
+        echo "ZPU operating system build"
+        echo ""
+        if( ! -r .zpu ) then
+            \rm -f .sunos
+            \rm -f .solaris
+            \rm -f .linux
+            \rm -f .zpu
+            touch .zpu
+            chmod 777 .zpu
+            make -f Makefile clean $makecmd
+            set result = $status
+        else
+            make -f Makefile ZPU_BUILD=1 $makecmd
+            set result = $status
+        endif
+        if( $result == 0 && -r libux.a ) then
+            \rm -f ${OSVER}lib/libux.a
+            \mv -f libux.a ${OSVER}lib
+        endif
+        breaksw
+
+    default:
+        echo "Unknown architecture, cannot build library..."
+        breaksw
+endsw

@@ -1,0 +1,4 @@
+#! /bin/csh
+
+setenv LD_LIBRARY_PATH /usr/motif/lib:/usr/openwin/lib:/home/psmart/dvlp/odbc/dlls:/apps/sybase/lib:/usr/ucblib
+/home/psmart/dvlp/VDW/5bin/vdwd -m 3 > /tmp/`hostname`.log &
