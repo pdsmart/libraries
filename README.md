@@ -1,5 +1,7 @@
 Please consult my [GitHub](https://pdsmart.github.io) website for more upto date information.
 <br>
+
+
 This repository is a collection of software libraries I've developed over time, some which I aim to use with the ZPU Evo.
 
 Currently there is an issue with the ZPU GCC Toolchain in that it doesnt support network programming or the newlib library. This means UX wont fully build for the ZPU Evo but it is something I will endeavour to resolve as I want network functionality and threads in zOS.
@@ -18,6 +20,7 @@ The methods in the UX Library are described below ordered by the module to which
 
 Unix or Windows Command Line Processing functions.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**GetCLIParam**|
  |Description:    |Get a Command Line Interface Parameter from the command line of the shell which started this program... Confusing!|
@@ -28,6 +31,7 @@ Unix or Windows Command Line Processing functions.
 
 A set of methods to compress/decompress data. The basic code stems from a LINUX public domain lzw compression/decompression algorithm, basically tidied up a little and enhanced to allow embedding within programs. Eventually, a more hi-tech algorithm will be implemented, but for now, this lzw appears to have very high compression ratio's on text.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**Compress**|
  |Description:    |A generic function to compress a buffer of text. |
@@ -53,6 +57,7 @@ A set of methods to compress/decompress data. The basic code stems from a LINUX 
 
 Generic network communications routines. These form the basis of daemon functionality, receiving connections and scheduling processes and callbacks.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SL_CalcCRC**|
  |Description:    |Calculate the CRC on a buffer.|
@@ -252,6 +257,7 @@ Generic network communications routines. These form the basis of daemon function
 
 General purpose standalone (programmable) logging utilities.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**Lgr**|
  |Description:    |A function to log a message to a flatfile, database or both.|
@@ -262,6 +268,7 @@ General purpose standalone (programmable) logging utilities.
 
 A library of linked list functions for creating, deleting, searching (etc..) linked lists.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**AddItem**|
  |Description:    |A simplistic mechanism to compose a linked list. The link is only singly linked, and items are only added to the tail of the list.|
@@ -315,6 +322,7 @@ A library of linked list functions for creating, deleting, searching (etc..) lin
 
 Interactive Monitor functionality. Provides a suite of interactive commands (HTML or Natural Language) that a user can issue to an executing application that incorporates these facilities.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ML_HTMLDefaultCB**|
  |Description:    |A default handler for the HTML interpreter which basically sends a not-coded message to the client.|
@@ -384,6 +392,7 @@ Interactive Monitor functionality. Provides a suite of interactive commands (HTM
 
 General purpose string processing funtions. Additions to those which exist within the C libraries.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**PutCharFromLong**|
  |Description:    |Place a long type variable into a character buffer in a known byte order. IE. A long is 32 bit, and is placed into the char buffer as MSB (3), 2, 1, LSB (0). Where MSB fits into the first byte of the buffer.|
@@ -1031,6 +1040,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### Audio driver sdd_aupl
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_AUPL_GetStrArg|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
@@ -1074,6 +1084,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### FTP Protocol driver sdd_ftpx
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_FTPX_GetStrArg|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
@@ -1192,6 +1203,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### Java driver sdd_java
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**java_InitService|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
@@ -1215,6 +1227,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### ODBC driver sdd_odbc
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_ODBC_GetArg|
  |Description:    |Function to scan an input buffer and extract a required argument from it. |
@@ -1268,6 +1281,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### SCMD driver sdd_scmd
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SCMD_GetStrArg|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
@@ -1336,6 +1350,7 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
 ### Sybase driver sdd_sybc
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_SYBC_GetArg|
  |Description:    |Function to scan an input buffer and extract a required argument from it. |
@@ -1392,6 +1407,7 @@ At the moment I can see no use for the VDW library in the ZPU Evo but it may be 
 
 The methods in the VDW Library are as follows. If a method begins with '_' then it is internal and normally not called directly, albeit being C there is no Private definition to methods or their data so you can call them if it helps.
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**GetConfig|
  |Description:    |Get configuration information from the OS or command line flags. |
@@ -1449,6 +1465,7 @@ The methods in the MDC Library are described below ordered by the functionality 
 
 ### MDC Server API
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_SendACK** |
  |Description:    |Function to send an acknowledge to the client in response to a data block received correctly or a request processed successfully. |
@@ -1487,6 +1504,7 @@ The methods in the MDC Library are described below ordered by the functionality 
 
 ### MDC Client API
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_DataCB** |
  |Description:    |This function is called back when data is received on any of the service connections |
@@ -1610,6 +1628,7 @@ The methods in the MDC Library are described below ordered by the functionality 
 
 ### MDC Common API
 
+ |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
  |**Function**:   |**_MDC_Init** |
  |Description:    |Function to perform MDC initialisation. The library performs checking to ensure that initialisation only occurs once prior to an _MDC_Terminate. |
