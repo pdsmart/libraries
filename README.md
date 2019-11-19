@@ -1166,56 +1166,56 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_AUPL_GetStrArg|
+ |**Function**:   |**_AUPL_GetStrArg**|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _AUPL_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_AUPL_ValidatePath|
+ |**Function**:   |**_AUPL_ValidatePath**|
  |Description:    |Function to validate the existence of a path. |
  |Returns:        |SDD_FAIL- Couldnt validate PATH.<br>SDD_OK    - PATH validated. |
  |Prototype:      |`int _AUPL_ValidatePath( UCHAR *pszPath ) /* I: Path to validate */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_AUPL_ValidateFile|
+ |**Function**:   |**_AUPL_ValidateFile**|
  |Description:    |Function to validate the existence of a file or to validate that a file can be created. |
  |Returns:        |SDD_FAIL- Couldnt obtain Filename or validate it.<br>SDD_OK    - Filename obtained and validated. |
  |Prototype:      |`int _AUPL_ValidateFile( UCHAR *pszPath /* I: Path to file */, UCHAR *pszFile /* I: File to validate */, UINT nWriteFlag ) /* I: Read = 0, Write = 1 */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_AUPL_PlayZ|
+ |**Function**:   |**_AUPL_PlayZ**|
  |Description:    |Function to play a compressed audio file. Method of attach is to launch a child which is the actual decompressor, this feeds data back via the stdout of the child to our stdin. The data is then buffered in a round robin fashion and fed to the audio DSP hardware. |
  |Returns:        |SDD_FAIL- Command failed during execution.<br>SDD_OK    - Command executed successfully. |
  |Prototype:      |`int _AUPL_PlayZ( UCHAR *pszAudioPath /* I: Path to Audio File */, UCHAR *pszAudioFile /* I: Audio Filename */, int (*fSendDataCB)(UCHAR *, UINT) /* I: Func for returning data */, UCHAR *szErrMsg ) /* O: Error message generated */`jjjjj |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**aupl_InitService|
+ |**Function**:   |**aupl_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int aupl_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**aupl_CloseService|
+ |**Function**:   |**aupl_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int aupl_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**aupl_ProcessRequest|
+ |**Function**:   |**aupl_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int aupl_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**aupl_ProcessOOB|
+ |**Function**:   |**aupl_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void aupl_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1224,161 +1224,161 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_GetStrArg|
+ |**Function**:   |**_FTPX_GetStrArg**|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _FTPX_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_GetMode|
+ |**Function**:   |**_FTPX_GetMode**|
  |Description:    |Function to scan an input buffer and determine the mode of FTP operation that the caller requires (Binary or Ascii). If no mode is provided then default to binary. |
  |Returns:        |Mode Flag - 1 = Binary mode selected.<br>- 0 = Ascii mode selected. |
  |Prototype:      |`int _FTPX_GetMode( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen ) /* I: Len of data */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_GetWriteData|
+ |**Function**:   |**_FTPX_GetWriteData**|
  |Description:    |Function to scan an input buffer, verify that it has data in it, extract the data and store in the opened file stream and set the start flag if the block is the final block. |
  |Returns:        |SDD_FAIL- Bad block of data or error writing to file.<br>SDD_OK    - Block obtained and stored. |
  |Prototype:      |`int _FTPX_GetWriteData( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, FILE *fpFile /* IO: Opened file stream */, int *nLast /* O: Last block flag */, UCHAR *szErrMsg ) /* O: Any resultant error msg */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PutReadData|
+ |**Function**:   |**_FTPX_PutReadData**|
  |Description:    |Function to read an open stream and transmit the data contents to the caller via the callback mechanism.  |
  |Returns:        |SDD_FAIL- Couldnt obtain PATH.<br>SDD_OK    - PATH obtained. |
  |Prototype:      |`int _FTPX_PutReadData( FILE *fpFile /* I: Stream to read from */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send data to */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PIDataCB|
+ |**Function**:   |**_FTPX_PIDataCB**|
  |Description:    |Function to handle any control information passed back from the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_PIDataCB( UINT nChanId /* I: Channel data arrived on */, UCHAR *szData /* I: Actual data */, UINT nDataLen ) /* I: Length of data */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PICtrlCB|
+ |**Function**:   |**_FTPX_PICtrlCB**|
  |Description:    |Function to handle any control callbacks during connectivity with the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_PICtrlCB( int nType /* I: Type of callback */, ... ) /* I: Var args */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_DTPDataCB|
+ |**Function**:   |**_FTPX_DTPDataCB**|
  |Description:    |Function to handle any data passed back from the FTP server on the data transfer connection.. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_DTPDataCB( UINT nChanId /* I: Channel data arrived on */, UCHAR *szData /* I: Actual data */, UINT nDataLen )  /* I: Length of data */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_DTPCtrlCB|
+ |**Function**:   |**_FTPX_DTPCtrlCB**|
  |Description:    |Function to handle any control callbacks on the Data Transfer connection with the FTP server. |
  |Returns:        |No returns. |
  |Prototype:      |`void _FTPX_DTPCtrlCB( int nType /* I: Type of callback */, ... ) /* I: Var args */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PIGetResponse|
+ |**Function**:   |**_FTPX_PIGetResponse**|
  |Description:    |Function to get a response code from the FTP server. |
  |Returns:        |Response Code. |
  |Prototype:      |`int _FTPX_PIGetResponse( void )` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PISendCmd|
+ |**Function**:   |**_FTPX_PISendCmd**|
  |Description:    |Function to send a command to an FTP server. |
  |Returns:        |SDD_FAIL - FTP Server failed to respond, see szErrMsg.<br>SDD_OK   - Command sent successfully. |
  |Prototype:      |`int _FTPX_PISendCmd( UCHAR *szCmd /* I: Command to send */, UINT *panReqResponses /* I: Array of req resp */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PIGetDTPResponse|
+ |**Function**:   |**_FTPX_PIGetDTPResponse**|
  |Description:    |Function to get a response code during a DTP transfer. |
  |Returns:        |Response Code. |
  |Prototype:      |`int _FTPX_PIGetDTPResponse( void )` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_PISendDTPCmd|
+ |**Function**:   |**_FTPX_PISendDTPCmd**|
  |Description:    |Function to send a command to an FTP server which will invoke a DTP channel for data transfer. |
  |Returns:        |SDD_FAIL - FTP Server failed to respond, see szErrMsg.<br>SDD_OK   - Command sent successfully. |
  |Prototype:      |`int _FTPX_PISendDTPCmd( UCHAR *szCmd /* I: Command to send */, UINT *panReqResponses /* I: Allowed responses */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_SetMode|
+ |**Function**:   |**_FTPX_SetMode**|
  |Description:    |Function to setup the transfer mode between the FTP server and the driver. |
  |Returns:        |SDD_FAIL - Failed to set transfer mode, critical error.<br>SDD_OK     - Mode set. |
  |Prototype:      |`int _FTPX_SetMode( UINT nBinaryMode /* I: Select binary mode = TRUE */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_SetCwd|
+ |**Function**:   |**_FTPX_SetCwd**|
  |Description:    |Function to set the FTP servers current working directory. |
  |Returns:        |SDD_FAIL - Failed to set directory to that specified.<br>SDD_OK     - Current Working Directory set. |
  |Prototype:      |`int _FTPX_SetCwd( UCHAR *szPath /* I: Path to set CWD */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_FTPInit|
+ |**Function**:   |**_FTPX_FTPInit**|
  |Description:    |Function to initialise a connection with an FTP server. The caller provides the name/IP address of the server and the user name/password to complete the connection. |
  |Returns:        |SDD_FAIL - Couldnt make connection with given details.<br>SDD_OK     - FTP connection made. |
  |Prototype:      |`int _FTPX_FTPInit( UCHAR *szFTPServer /* I: Name of FTP server */, UCHAR *szUserName /* I: User name to login with */, UCHAR *szPassword /* I: Password for login */, UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_FTPClose|
+ |**Function**:   |**_FTPX_FTPClose**|
  |Description:    |Function to close a connected FTP connection and tidy up in preparation for next task. |
  |Returns:        |SDD_FAIL - Failed to close properly, library wont work again.<br>SDD_OK     - Closed. |
  |Prototype:      |`int _FTPX_FTPClose( UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_FTPRenFile|
+ |**Function**:   |**_FTPX_FTPRenFile**|
  |Description:    |Function to rename a file on a remote FTP server. |
  |Returns:        |SDD_FAIL - Failed to rename the required file.<br>SDD_OK     - File renamed successfully. |
  |Prototype:      |`int _FTPX_FTPRenFile( UCHAR *szPath /* I: Path to remote file */, UCHAR *szSrcFile /* I: Original remote file name */, UCHAR *szDstFile /* I: New remote file name */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_FTPRcvFile|
+ |**Function**:   |**_FTPX_FTPRcvFile**|
  |Description:    |Function to initiate a file transfer from the FTP server to the current machine file system. |
  |Returns:        |SDD_FAIL - Failed to complete file transfer.<br>SDD_OK     - File received successfully. |
  |Prototype:      |`int _FTPX_FTPRcvFile( UCHAR *szRcvFile /* I: Name of file to store in */, UCHAR *szPath /* I: Path to remote file */, UCHAR *szFile /* I: Remote file */, UINT nBinaryMode /* I: Select binary transfer mode */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_FTPX_FTPXmitFile|
+ |**Function**:   |**_FTPX_FTPXmitFile**|
  |Description:    |Function to initiate a file transfer from the current machine file system to the FTP server. |
  |Returns:        |SDD_FAIL - Failed to complete file transfer.<br>SDD_OK     - File transmitted successfully. |
  |Prototype:      |`int _FTPX_FTPXmitFile( UCHAR *szXmitFile /* I: Name of file to transmit */, UCHAR *szPath /* I: Path to remote destination */, UCHAR *szFile /* I: Remote file */, UINT nBinaryMode /* I: Select binary transfer Mode */, UCHAR *szErrMsg ) /* O: Generated error messages */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**ftpx_InitService|
+ |**Function**:   |**ftpx_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int ftpx_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**ftpx_CloseService|
+ |**Function**:   |**ftpx_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int ftpx_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**ftpx_ProcessRequest|
+ |**Function**:   |**ftpx_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int ftpx_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**ftpx_ProcessOOB|
+ |**Function**:   |**ftpx_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void ftpx_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1387,28 +1387,28 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**java_InitService|
+ |**Function**:   |**java_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int java_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**java_CloseService|
+ |**Function**:   |**java_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int java_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**java_ProcessRequest|
+ |**Function**:   |**java_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int java_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**java_ProcessOOB|
+ |**Function**:   |**java_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void java_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1417,70 +1417,70 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_GetArg|
+ |**Function**:   |**_ODBC_GetArg**|
  |Description:    |Function to scan an input buffer and extract a required argument from it. |
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained and validated. |
  |Prototype:      |`int _ODBC_GetArg( UCHAR *szArgType /* I: Type of Arg to scan for */, UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR **pszArg ) /* O: Pointer to Arg */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_LogODBCError|
+ |**Function**:   |**_ODBC_LogODBCError**|
  |Description:    |Function to dump an error message/code from the ODBC driver to the log device. Typically used for debugging. |
  |Returns:        |No returns. |
  |Prototype:      |`void _ODBC_LogODBCError( HSTMT hStmt )` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_RunSql|
+ |**Function**:   |**_ODBC_RunSql**|
  |Description:    |Function to execute a given buffer of SQL on the current database and return resultant data to the original caller. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_RunSql( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_ListDB|
+ |**Function**:   |**_ODBC_ListDB**|
  |Description:    |Function to list all the names of databases available on the currently open data source. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListDB( int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_ListTables|
+ |**Function**:   |**_ODBC_ListTables**|
  |Description:    |Function to list all names of tables in a given database (or current database if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListTables( UCHAR *snzDataBuf  /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_ODBC_ListCols|
+ |**Function**:   |**_ODBC_ListCols**|
  |Description:    |Function to list all names and attributes of columns in a given table in a given database (or current database/table if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _ODBC_ListCols( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**odbc_InitService|
+ |**Function**:   |**odbc_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrMsg.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int odbc_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**odbc_CloseService|
+ |**Function**:   |**odbc_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrMsg.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int odbc_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**odbc_ProcessRequest|
+ |**Function**:   |**odbc_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int odbc_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**odbc_ProcessOOB|
+ |**Function**:   |**odbc_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void odbc_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1489,91 +1489,91 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_GetStrArg|
+ |**Function**:   |**_SCMD_GetStrArg**|
  |Description:    |Function to scan an input buffer and extract a string based argument. |
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained. |
  |Prototype:      |`int _SCMD_GetStrArg( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR *szArg /* I: Arg to look for */, UCHAR **pszPath ) /* O: Pointer to argument */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_ValidatePath|
+ |**Function**:   |**_SCMD_ValidatePath**|
  |Description:    |Function to validate the existence of a path. |
  |Returns:        |SDD_FAIL- Couldnt validate PATH.<br>SDD_OK    - PATH validated. |
  |Prototype:      |`int _SCMD_ValidatePath( UCHAR *pszPath ) /* I: Path to validate */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_ValidateFile|
+ |**Function**:   |**_SCMD_ValidateFile**|
  |Description:    |Function to validate the existence of a file or to validate that a file can be created. |
  |Returns:        |SDD_FAIL- Couldnt obtain Filename or validate it.<br>SDD_OK    - Filename obtained and validated. |
  |Prototype:      |`int _SCMD_ValidateFile( UCHAR *pszPath /* I: Path to file */, UCHAR *pszFile /* I: File to validate */, UINT nWriteFlag ) /* I: Read = 0, Write = 1 */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_ValidateTime|
+ |**Function**:   |**_SCMD_ValidateTime**|
  |Description:    |Function to validate a time value given as an ascii string. |
  |Returns:        |SDD_FAIL- Couldnt obtain a TIME or validate it.<br>SDD_OK    - TIME obtained and validated. |
  |Prototype:      |`int _SCMD_ValidateTime( UCHAR *pszTime /* I: Time to verify */, ULNG *lTime ) /* O: Time in seconds */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_Exec|
+ |**Function**:   |**_SCMD_Exec**|
  |Description:    |Function to execute a given command via a fork and exec, attaching the parent to the childs I/O so that any data output by the child can be captured by the parent and fed back to the caller. |
  |Returns:        |SDD_FAIL- Command failed during execution.<br>SDD_OK    - Command executed successfully. |
  |Prototype:      |`int _SCMD_Exec( int nTimedExec /* I: Is this a timed exec (T/F)? */, UCHAR *pszPath /* I: Path to command */, UCHAR *pszCmd /* I: Command name */, UCHAR *pszArgs /* I: Arguments to command */, ULNG lTimeToExec /* I: Time to execution */, int (*fSendDataCB)(UCHAR *, UINT) /* I: Func for returning data */, UCHAR *szErrMsg ) /* O: Error message generated */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_GetWriteData|
+ |**Function**:   |**_SCMD_GetWriteData**|
  |Description:    |Function to scan an input buffer, verify that it has data in it, extract the data and store in the opened file stream and set the start flag if the block is the final block. |
  |Returns:        |SDD_FAIL- Bad block of data or error writing to file.<br>SDD_OK    - Block obtained and stored. |
  |Prototype:      |`int _SCMD_GetWriteData( UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, FILE *fpFile /* IO: Opened file stream */, int *nLast /* O: Last block flag */, UCHAR *szErrMsg ) /* O: Any resultant error msg */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_PutReadData|
+ |**Function**:   |**_SCMD_PutReadData**|
  |Description:    |Function to read an open stream and transmit the data contents to the caller via the callback mechanism.  |
  |Returns:        |SDD_FAIL- Couldnt obtain PATH.<br>SDD_OK    - PATH obtained. |
  |Prototype:      |`int _SCMD_PutReadData( FILE *fpFile /* I: Stream to read from */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send data to */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_MoveFile|
+ |**Function**:   |**_SCMD_MoveFile**|
  |Description:    |Function to move a file from one location/name to another. This is performed as a copy and unlink operation because the underlying may not support moves across file systems. |
  |Returns:        |SDD_FAIL- An error whilst moving file, see szErrMsg.<br>SDD_OK    - File moved successfully. |
  |Prototype:      |`int _SCMD_MoveFile( UCHAR *pszSrcPath /* I: Path to source file */, UCHAR *pszSrcFile /* I: Source File */, UCHAR *pszDstPath /* I: Path to dest file */, UCHAR *pszDstFile /* I: Dest File */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SCMD_DeleteFile|
+ |**Function**:   |**_SCMD_DeleteFile**|
  |Description:    |Function to delete a file from the given path. |
  |Returns:        |SDD_FAIL- An error whilst moving file, see szErrMsg.<br>SDD_OK    - File moved successfully. |
  |Prototype:      |`int _SCMD_DeleteFile( UCHAR *pszDelPath /* I: Path to file */, UCHAR *pszDelFile /* I: File to delete */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**scmd_InitService|
+ |**Function**:   |**scmd_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int scmd_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**scmd_CloseService|
+ |**Function**:   |**scmd_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int scmd_CloseService( UCHAR *szErrMsg ) /* O: Error message if failed */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**scmd_ProcessRequest|
+ |**Function**:   |**scmd_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int scmd_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply*/, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**scmd_ProcessOOB|
+ |**Function**:   |**scmd_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void scmd_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1582,63 +1582,63 @@ The methods in the SDD Library are described below ordered by the driver to whic
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SYBC_GetArg|
+ |**Function**:   |**_SYBC_GetArg**|
  |Description:    |Function to scan an input buffer and extract a required argument from it. |
  |Returns:        |SDD_FAIL- Couldnt obtain argument.<br>SDD_OK    - Argument obtained and validated. |
  |Prototype:      |`int _SYBC_GetArg( UCHAR *szArgType /* I: Type of Arg to scan for */, UCHAR *snzDataBuf /* I: Input buffer */, int nDataLen /* I: Len of data */, UCHAR **pszArg ) /* O: Pointer to Arg */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SYBC_RunSql|
+ |**Function**:   |**_SYBC_RunSql**|
  |Description:    |Function to execute a given buffer of SQL on the current database and return resultant data to the original caller. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_RunSql( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**sybc_InitService|
+ |**Function**:   |**sybc_InitService**|
  |Description:    |Entry point which initialises the driver into a defined state. It is mandatory that this function is called before any other in order for the driver to function correctly. The caller provides it with two types of data, 1) A structure containing data for it to use in initialising itself, 2) a pointer to a buffer which the driver uses to place an error message should it not be able to complete initialisation. |
  |Returns:        |SDD_FAIL- An error occurred in initialising the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver initialised successfully. |
  |Prototype:      |`int sybc_InitService( SERVICEDETAILS *sServiceDet /* I: Init data */, UCHAR *szErrStr ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SYBC_ListDB|
+ |**Function**:   |**_SYBC_ListDB**|
  |Description:    |Function to list all the names of databases available on the currently open data source. |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListDB( int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SYBC_ListTables|
+ |**Function**:   |**_SYBC_ListTables**|
  |Description:    |Function to list all names of tables in a given database (or current database if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListTables( UCHAR *snzDataBuf  /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**_SYBC_ListCols|
+ |**Function**:   |**_SYBC_ListCols**|
  |Description:    |Function to list all names and attributes of columns in a given table in a given database (or current database/table if no database name given). |
  |Returns:        |SDD_FAIL- SQL execution failed, see error message.<br>SDD_OK    - SQL execution succeeded. |
  |Prototype:      |`int _SYBC_ListCols( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**sybc_CloseService|
+ |**Function**:   |**sybc_CloseService**|
  |Description:    |Entry point which performs a drive closedown. The closedown procedure ensure that the driver returns to a virgin state (ie.like at power up) so that InitService can be called again. |
  |Returns:        |SDD_FAIL- An error occurred in closing the driver and an error message is stored in szErrStr.<br>SDD_OK    - Driver successfully closed. |
  |Prototype:      |`int    sybc_CloseService( UCHAR        *szErrMsg )    /* O: Error message if failed */ |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**sybc_ProcessRequest|
+ |**Function**:   |**sybc_ProcessRequest**|
  |Description:    |Entry point into driver to initiate the driver into processing a request. A data block is passed as a parameter to the driver which represents a request with relevant parameters. The data within the structure is only relevant to the original client and this driver code. |
  |Returns:        |SDD_FAIL- An error occurred within the driver whilst trying to process the request, see error text.<br>SDD_OK    - Request processed successfully. |
  |Prototype:      |`int sybc_ProcessRequest( UCHAR *snzDataBuf /* I: Input data */, int nDataLen /* I: Len of data */, int (*fSendDataCB)(UCHAR *, UINT) /* I: CB to send reply */, UCHAR *szErrMsg ) /* O: Error text */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**sybc_ProcessOOB|
+ |**Function**:   |**sybc_ProcessOOB**|
  |Description:    |Entry point into driver to process an out of band command that may or may not be relevant to current state of operation. The task of this function is to decipher the command and act on it immediately, ie. a cancel command would abort any ProcessRequest that is in process and clean up. |
  |Returns:        |No returns. |
  |Prototype:      |`void sybc_ProcessOOB( UCHAR nCommand ) /* I: OOB Command */` |
@@ -1655,63 +1655,63 @@ The methods in the VDW Library are as follows. If a method begins with '_' then 
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**GetConfig|
+ |**Function**:   |**GetConfig**|
  |Description:    |Get configuration information from the OS or command line flags. |
  |Returns:        |VDWD_OK        - Configuration obtained.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int GetConfig( int argc /* I: CLI argument count */.  UCHAR **argv /* I: CLI argument contents */, char **envp /* I: Environment variables */, UCHAR *szErrMsg ) /* O: Any generated error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDInit|
+ |**Function**:   |**VDWDInit**|
  |Description:    |Initialisation of variables, functionality, communications and turning the process into a daemon. |
  |Returns:        |VDWD_OK        - Initialised successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDInit( UCHAR *szErrMsg ) /* O: Generated error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDClose|
+ |**Function**:   |**VDWDClose**|
  |Description:    |Function to perform closure of all used resources within the module. |
  |Returns:        |VDWD_OK        - Closed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDClose( UCHAR *szErrMsg ) /* O: Generated error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDSentToClient|
+ |**Function**:   |**VDWDSentToClient**|
  |Description:    |Function to send data from this daemon back to the relevant client. |
  |Returns:        |SDD_OK        - Data sent successfully.<br>SDD_FAIL    - Failure in sending data. |
  |Prototype:      |`int VDWDSendToClient( UCHAR *snzData /* I: Data to send */, UINT nDataLen ) /* I: Length of data */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDInitService|
+ |**Function**:   |**VDWDInitService**|
  |Description:    |Function to call a given drivers initialisation function. |
  |Returns:        |VDWD_OK        - Service was initialised successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDInitService( int nServiceType /* I: Type of service*/, SERVICEDETAILS *sServiceDet /* I: Service Data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDCloseService|
+ |**Function**:   |**VDWDCloseService**|
  |Description:    |Function to call a given drivers closedown function. |
  |Returns:        |VDWD_OK        - Service was closed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDCloseService( int nServiceType /* I: Type of service*/, UCHAR *szErrMsg )    /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDProcessRequest|
+ |**Function**:   |**VDWDProcessRequest**|
  |Description:    |Function to call a given drivers function to process a service request. |
  |Returns:        |VDWD_OK        - Request was processed successfully.<br>VDWD_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDProcessRequest( int nServiceType /* I: Type of service */, UCHAR *snzData /* I: Data Buffer */, UINT nDataLen /* I: Len of Data */, UCHAR *szErrMsg ) /* O: Error message */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDDataCallback|
+ |**Function**:   |**VDWDDataCallback**|
  |Description:    |Function which is registered as a callback and is called every time data arrives from a new client. |
  |Returns:        |MDC_OK        - Closed successfully.<br>MDC_FAIL    - Failure, see error message. |
  |Prototype:      |`int VDWDDataCallback( UCHAR *snzData /* I: Buffer containing data */, int nDataLen /* I: Length of data in buffer */, UCHAR *szErrMsg )  /* O: Error messages generated */` |
 
  |                |                                                                               |
  | ----------     | ----------------------------------------------------------------------------- |
- |**Function**:   |**VDWDOOBCallback|
+ |**Function**:   |**VDWDOOBCallback**|
  |Description:    |Function to take action on out of band commands from the MDC layer. Out of band messages are generally commands which need to be actioned upon immediately, so they are passed up into the Drivers out of band processing function.  |
  |Returns:        |No returns. |
  |Prototype:      |`void VDWDOOBCallback( UCHAR cCmd ) /* I: Command to action upon */` |
